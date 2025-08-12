@@ -39,34 +39,33 @@ export const DigitTimer: React.FC<DigitTimerProps> = ({ remainingTime, showCenti
 
   // הסר את כל הסטייטים והאפקטים של flip/אנימציה
   // בנה את מערך הספרות להצגה ללא מחלקות flipping וללא לוגיקה של prevDigits/flips/sepFlips
-  let idx = 0;
   const digits: React.ReactNode[] = [];
   if (hours > 0) {
     digits.push(
       <div className="time-digit-main" key="h10">{hoursStr[0]}</div>
-    ); idx++;
+    );
     digits.push(
       <div className="time-digit-main" key="h1">{hoursStr[1]}</div>
-    ); idx++;
+    );
     digits.push(
       <span className="time-separator-main" key="sep-hm">:</span>
     );
   }
   digits.push(
     <div className="time-digit-main" key="m10">{minutesStr[0]}</div>
-  ); idx++;
+  );
   digits.push(
     <div className="time-digit-main" key="m1">{minutesStr[1]}</div>
-  ); idx++;
+  );
   digits.push(
     <span className="time-separator-main" key="sep-ms">:</span>
   );
   digits.push(
     <div className="time-digit-main" key="s10">{secondsStr[0]}</div>
-  ); idx++;
+  );
   digits.push(
     <div className="time-digit-main" key="s1">{secondsStr[1]}</div>
-  ); idx++;
+  );
   if (showCentiseconds) {
     digits.push(
       <span
@@ -78,7 +77,7 @@ export const DigitTimer: React.FC<DigitTimerProps> = ({ remainingTime, showCenti
     );
     digits.push(
       <div className="time-digit-main centi-digit" key="cs10">{centiseconds[0]}</div>
-    ); idx++;
+    );
     digits.push(
       <div className="time-digit-main centi-digit" key="cs1">{centiseconds[1]}</div>
     );
@@ -89,4 +88,4 @@ export const DigitTimer: React.FC<DigitTimerProps> = ({ remainingTime, showCenti
       {digits}
     </div>
   );
-}; 
+};
