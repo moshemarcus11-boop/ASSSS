@@ -1,13 +1,17 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { ref, onValue } from 'firebase/database';
+import { database } from './firebase';
 
 interface DigitTimerProps {
-  remainingTime: number; // בשניות
+  // הסרנו את remainingTime, isActive, isPaused מה-props
   showCentiseconds?: boolean;
-  isActive?: boolean;
-  isPaused?: boolean;
 }
 
-export const DigitTimer: React.FC<DigitTimerProps> = ({ remainingTime, showCentiseconds = true, isActive = true, isPaused = false }) => {
+export const DigitTimer: React.FC<DigitTimerProps> = ({ showCentiseconds = true }) => {
+  const [remainingTime, setRemainingTime] = useState(0);
+  const [isActive, setIsActive] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
+  
   // מחשבים ספרות
   const hours = Math.floor(remainingTime / 3600);
   const minutes = Math.floor((remainingTime % 3600) / 60);
@@ -15,6 +19,22 @@ export const DigitTimer: React.FC<DigitTimerProps> = ({ remainingTime, showCenti
   // מאיות (centiseconds): שתי ספרות מימין לשניות
   const [centiseconds, setCentiseconds] = useState('00');
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
+
+  // האזנה לשינויים ב-Firebase
+  useEffect(() => {
+    const timerRef = ref(database, 'timer');
+    const unsubscribe = onValue(timerRef, (snapshot) => {
+      if (snapshot.exists()) {
+        const data = snapshot.val();
+        setRemainingTime(data.remainingTime);
+        setIsActive(data.isActive);
+        setIsPaused(data.isPaused);
+      }
+    });
+    return () => {
+      unsubscribe();
+    };
+  }, []);
 
   useEffect(() => {
     if (!showCentiseconds || !isActive || isPaused) {
