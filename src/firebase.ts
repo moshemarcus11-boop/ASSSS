@@ -1,5 +1,4 @@
-// src/firebase.ts
-
+// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getDatabase } from "firebase/database";
 
@@ -11,8 +10,8 @@ const firebaseConfig = {
   projectId: "thermacamp",
   storageBucket: "thermacamp.firebasestorage.app",
   messagingSenderId: "1063995028212",
-  appId: "1:1063995028212:web:5a1c8440fb1140754c64a1",
-  measurementId: "G-CP5P9MV8WP"
+  appId: "1:1063995028212:web:4af53569e0b78c114c64a1",
+  measurementId: "G-LBJXMV2CW6"
 };
 
 // Initialize Firebase
